@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reverse Engineering</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Analyze Your Binary</h1>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+      <input type="file" name="file" required>
+      <button type="submit">Analyze</button>
+    </form>
+
+    {% if results %}
+      <div class="results">
+        <h2>Results:</h2>
+        {% for category, items in results.items() %}
+          <div class="section">
+            <h3>{{ category | capitalize }}</h3>
+            {% if items %}
+              <ul>
+                {% for item in items %}
+                  <li><code>{{ item }}</code></li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>No results.</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
